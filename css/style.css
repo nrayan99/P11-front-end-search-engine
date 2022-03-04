@@ -1,0 +1,80 @@
+*{
+    font-family: DM Sans;
+}
+
+.logo {
+    height: 50px;
+    width: 50px;
+}
+header>a>h1 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 47px;
+    text-align: center;
+    color: #D04F4F;
+}
+header>a:hover {
+    text-decoration: none;
+}
+.search-bar {
+    height: 70px;
+    background: #E7E7E7;
+    border: none;
+}
+.input-group>.input-group-append>.btn {
+    height: 70px;
+    background: #E7E7E7;
+    border: none;
+    color: black;
+    font-size: 30px;
+}
+.search-bar:focus {
+    background: #E7E7E7;
+}
+.btn {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.ingredients-btn {
+    height: 70px;
+    width: 170px;
+    background: #3282F7;
+}
+.appliances-btn {
+    height: 70px;
+    width: 170px;
+    background: #68D9A4;
+}
+.ustensils-btn {
+    height: 70px;
+    width: 170px;
+    background: #ED6454;
+}
+.card {
+    width: 360px;
+}
+.card-empty-img {
+    background: #C7BEBE;
+    height: 178px;
+    width: 100%;
+}
+.card .row .col:nth-child(2) {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 100%;
+    color: #000000;
+}
+.card .row .col:first-child {
+
+    font-family: Lato;
+    font-size: 12px;
+    line-height: 14px;
+}
