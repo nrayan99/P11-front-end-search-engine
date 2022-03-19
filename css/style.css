@@ -32,14 +32,16 @@ header>a:hover {
 .search-bar:focus {
     background: #E7E7E7;
 }
-.btn {
+button>span{
     font-family: Lato;
     font-style: normal;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 18px;
     line-height: 22px;
-    text-align: center;
     color: #FFFFFF;
+}
+.btn {
+    border-radius: 5px;
 }
 .ingredients-btn {
     height: 70px;
