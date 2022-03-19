@@ -56,12 +56,9 @@ header>a:hover {
     width: 170px;
     background: #ED6454;
 }
-.card {
-    width: 360px;
-}
 .card-empty-img {
     background: #C7BEBE;
-    height: 178px;
+    min-height: 178px;
     width: 100%;
 }
 .card .row .col:nth-child(2) {
@@ -77,4 +74,22 @@ header>a:hover {
     font-family: Lato;
     font-size: 12px;
     line-height: 14px;
+}
+.time {
+    margin-left: 5px;
+}
+#receipts {
+    display: grid;
+    grid-gap: 5vw;
+    grid-template-columns: repeat(auto-fill,minmax(350px,1fr));
+    margin-top: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.receipt-instructions {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
 }

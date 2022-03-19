@@ -65,50 +65,48 @@
           </div>
         </section>
         <section id="receipts">
-            <div class="card">
-              <div class="card-empty-img"></div>
-              <div class="card-body">
-                <div class="card-title d-flex justify-content-between">
-                  <h5>Limonade de coco</h5>
-                  <div class="time font-weight-bold">
-                    <i class="far fa-clock"></i>
-                    10 min
-                  </div>
+        </section>
+        <template id="receipt-model">
+          <div class="card">
+            <div class="card-empty-img"></div>
+            <div class="card-body">
+              <div class="card-title d-flex justify-content-between">
+                <h5 class="receipt-name"></h5>
+                <div class="time font-weight-bold">
+                  <i class="far fa-clock"></i>
+                  <span class="receipt-duration">
+                  </span>
+                  min
                 </div>
-                <div class="row">
-                  <div class="col">
-                    <ul class="list-unstyled">
-                      <li>
-                        <strong>Lait de coco:</strong> 400ml
-                      </li>
-                      <li>
-                        <strong>Jus de citron:</strong> 2
-                      </li>
-                      <li>
-                        <strong>Créme de coco:</strong> 4 cuillères
-                      </li>
-                      <li>
-                        <strong>Sucre</strong> 20g
-                      </li>
-                      <li>
-                        <strong>Glaçons:</strong> 2
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col">
-                    <span>
-                      Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée
-                    </span>
-                  </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <ul class="list-unstyled receipt-ingredients">
+                  </ul>
+                </div>
+                <div class="col">
+                  <span class="receipt-instructions">
+                  </span>
                 </div>
               </div>
             </div>
-        </section>
+          </div>
+        </template>
+        <template id="ingredient-model">
+          <li class="receipt-ingredient">
+            <strong class="receipt-ingredient-name"></strong>
+             <span class="receipt-ingredient-quantity">
+             </span>
+             <span class="receipt-ingredient-unit">
+            </span>
+          </li>
+        </template>
       </main>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="data/recipes.js" ></script>
+  <script src="scripts/index.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>
