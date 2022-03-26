@@ -128,17 +128,17 @@ button>span{
     justify-content: space-between;
 }
 
-.ingredients-opened, .ingredients-opened input {
+.ingredients-opened, .ingredients-opened input, .selected-ingredients  {
     background: #3282F7;
     border: #3282F7;
     color: #FFFFFF;
 }
-.appliances-opened, .appliances-opened input  {
+.appliances-opened, .appliances-opened input, .selected-appliances   {
     background: #68D9A4;
     border: #68D9A4;
     color: #FFFFFF;
 }
-.ustensils-opened, .ustensils-opened input  {
+.ustensils-opened, .ustensils-opened input, .selected-ustensils  {
     background: #ED6454;
     border: #ED6454;
     color: #FFFFFF;
@@ -147,6 +147,7 @@ button>span{
     list-style: none;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px
 }
 
 .tags-container{
@@ -155,5 +156,19 @@ button>span{
 }
 
 .tags-item-name {
+    cursor: pointer;
+}
+.selected-tags-item {
+    height: 40px;
+    border-radius: 5px;
+    padding: 0 5px;
+    display: inline-block;
+}
+.selected-tags-item>div {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.delete-tags-item-btn{
     cursor: pointer;
 }

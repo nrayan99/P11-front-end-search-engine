@@ -1,6 +1,6 @@
 tagsButtons = document.querySelectorAll('.tags-btn')
+const tagsNameArray = ['ustensils', 'appliances', 'ingredients']
 closeTagButtons = document.querySelectorAll('.tags-opened i')
-console.log(closeTagButtons)
 closeTagButtons.forEach(closeTagButton => {
     closeTagButton.addEventListener('click', function(){
         closeTag(closeTagButton.className.split(' ')[0].split('-')[1])
@@ -18,11 +18,14 @@ const tagsItems = {
     ustensilsTagsItems: document.querySelector('.ustensils-opened .tags-items'),
     appliancesTagsItems: document.querySelector('.appliances-opened .tags-items')
 }
-function openTag(tag) {
-    console.log(tag)
+function openTag(tag){
+    tagsNameArray.forEach(tagName => {
+        if (tagName !== tag) closeTag(tagName)
+    })
     const tagToOpen = document.querySelector('.'+ tag + '-opened' )
     const buttonToHide = document.querySelector('.'+ tag + '-btn' )
     tagToOpen.style.display = 'block'
+    tagToOpen.querySelector('input').focus()
     buttonToHide.style.setProperty('display','none', 'important')
 }
 
@@ -70,10 +73,19 @@ function fillTags(tagsItem, tag) {
     tagsItems[tag+'TagsItems'].appendChild(dupNode)
 }
 
-function selectTag(ustensil){
-    console.log(ustensil)
+function selectTag(tagsItem, tag){
+    const selectedTagsItemList = document.querySelector('.selected-tags-item-list')
+    const elt = document.getElementById('selected-'+tag+'-item-model');
+    console.log(elt)
+    const dupNode = document.importNode(elt.content,true);
+    dupNode.querySelector('.selected-tags-item-name').textContent = tagsItem;
+    dupNode.querySelector('.delete-tags-item-btn').addEventListener('click', event => closeTagsItem(event))
+    closeTag(tag)
+    selectedTagsItemList.appendChild(dupNode)
 }
-
+function closeTagsItem(e) {
+    e.target.parentElement.parentElement.remove()
+}
 test('ingredients');
 test('appliances');
 test('ustensils');
