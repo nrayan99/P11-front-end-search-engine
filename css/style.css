@@ -22,6 +22,9 @@ header>a:hover {
     background: #E7E7E7;
     border: none;
 }
+#filters {
+    margin-bottom: 100px;
+}
 .input-group>.input-group-append>.btn {
     height: 70px;
     background: #E7E7E7;
@@ -80,10 +83,12 @@ button>span{
 .time {
     margin-left: 5px;
 }
-#receipts {
+#recipes {
     display: grid;
     grid-gap: 5vw;
-    grid-template-columns: repeat(auto-fill,minmax(350px,1fr));
+    grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+    grid-auto-columns: 1fr;
+    grid-auto-rows: max-content;
     margin-top: 10px;
     align-items: center;
     margin-bottom: 20px;
@@ -94,4 +99,54 @@ button>span{
     display: -webkit-box;
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
+}
+.card {
+    height: 100%;
+}
+
+.tags-opened{
+    display: none;
+    max-width: 670px;
+    padding: 15px;
+}
+.tags-opened i {
+    cursor: pointer;
+}
+.tags-opened input::placeholder {
+    color: rgba(255, 255, 255, 0.9);
+}
+.tags-opened input:focus {
+    outline: none;
+}
+.tags-opened .search-line {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ingredients-opened, .ingredients-opened input {
+    background: #3282F7;
+    border: #3282F7;
+    color: #FFFFFF;
+}
+.appliances-opened, .appliances-opened input  {
+    background: #68D9A4;
+    border: #68D9A4;
+    color: #FFFFFF;
+}
+.ustensils-opened, .ustensils-opened input  {
+    background: #ED6454;
+    border: #ED6454;
+    color: #FFFFFF;
+}
+.tags-items{
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tags-container{
+    position: absolute;
+    z-index: 1;
 }
