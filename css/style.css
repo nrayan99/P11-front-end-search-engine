@@ -109,6 +109,9 @@ button>span{
     max-width: 670px;
     padding: 15px;
 }
+.tags-opened input {
+    width: 100%;
+}
 .tags-opened i {
     cursor: pointer;
 }
@@ -149,4 +152,8 @@ button>span{
 .tags-container{
     position: absolute;
     z-index: 1;
+}
+
+.tags-item-name {
+    cursor: pointer;
 }
