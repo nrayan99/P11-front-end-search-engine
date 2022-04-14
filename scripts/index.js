@@ -1,6 +1,12 @@
-recipes.forEach(recipe => {
-    showReceipt(recipe)
-})
+const recipesSection = document.getElementById("recipes")
+
+hydrateRecipes(recipes)
+hydrateAllTags()
+function hydrateRecipes(recipes){
+    recipes.forEach(recipe => {
+        showReceipt(recipe)
+    })
+}
 
 function showReceipt(receipt) {
     const elt = document.getElementById('receipt-model');
@@ -21,5 +27,5 @@ function showReceipt(receipt) {
         ingredientsList.appendChild(dupIngredientNode)
     })
     dupNode.querySelector('.receipt-instructions').textContent = receipt.description
-    document.getElementById("recipes").appendChild(dupNode);
+    recipesSection.appendChild(dupNode);
 }

@@ -1,6 +1,18 @@
-tagsButtons = document.querySelectorAll('.tags-btn')
+const tagsButtons = document.querySelectorAll('.tags-btn')
 const tagsNameArray = ['ustensils', 'appliances', 'ingredients']
-closeTagButtons = document.querySelectorAll('.tags-opened i')
+const closeTagButtons = document.querySelectorAll('.tags-opened i')
+const tagsInput = {
+    ingredients : document.querySelector('.ingredients-opened input'),
+    appliances : document.querySelector('.appliances-opened input'),
+    ustensils : document.querySelector('.ustensils-opened input')
+}
+
+for (const tag in tagsInput){
+    tagsInput[tag].addEventListener('input', (event) =>{
+        filterTagItemsByText(event, tag)
+    } )
+}
+
 closeTagButtons.forEach(closeTagButton => {
     closeTagButton.addEventListener('click', function(){
         closeTag(closeTagButton.className.split(' ')[0].split('-')[1])
@@ -30,31 +42,40 @@ function openTag(tag){
 }
 
 function closeTag(tag){
-    console.log(tag)
     const tagToHide = document.querySelector('.'+ tag + '-opened' )
     const buttonToShow = document.querySelector('.'+ tag + '-btn' )
     tagToHide.style.display = 'none'
     buttonToShow.style.setProperty('display','block', 'important')
 }
 
-function test(tag) {
+function hydateTagByText(tag, text) {
     const tagsItemsList = new Set();
+    tagsItems[tag+'TagsItems'].innerHTML = ''
     if (tag === 'ingredients'){
-        recipes.forEach(recipe =>{
+        recipesFiltered.forEach(recipe =>{
             recipe.ingredients.forEach(ingredient=> {
-                tagsItemsList.add(ingredient.ingredient)
+                if (normalizeData(ingredient.ingredient).includes(text) || !text )
+                {
+                    tagsItemsList.add(normalizeData(ingredient.ingredient))
+                }
             })
         })
     }
     else if (tag === 'appliances') {
-        recipes.forEach(recipe =>{
-            tagsItemsList.add(recipe.appliance)
+        recipesFiltered.forEach(recipe =>{
+            if (normalizeData(recipe.appliance).includes(text) || !text )
+            {
+               tagsItemsList.add(normalizeData(recipe.appliance))
+            }
         })
     }
     else if (tag === 'ustensils') {
-        recipes.forEach(recipe =>{
+        recipesFiltered.forEach(recipe =>{
             recipe.ustensils.forEach(ustensil=> {
-                tagsItemsList.add(ustensil)
+                if (normalizeData(ustensil).includes(text) || !text )
+                {
+                    tagsItemsList.add(normalizeData(ustensil))
+                }
             })
         })
     }
@@ -76,16 +97,32 @@ function fillTags(tagsItem, tag) {
 function selectTag(tagsItem, tag){
     const selectedTagsItemList = document.querySelector('.selected-tags-item-list')
     const elt = document.getElementById('selected-'+tag+'-item-model');
-    console.log(elt)
     const dupNode = document.importNode(elt.content,true);
     dupNode.querySelector('.selected-tags-item-name').textContent = tagsItem;
-    dupNode.querySelector('.delete-tags-item-btn').addEventListener('click', event => closeTagsItem(event))
+    dupNode.querySelector('.delete-tags-item-btn').addEventListener('click', event => closeTagsItem(event, tag, tagsItem))
     closeTag(tag)
     selectedTagsItemList.appendChild(dupNode)
+    filters[tag].push(tagsItem)
+    console.log(filters)
+    filterRecipes(filters)
 }
-function closeTagsItem(e) {
+
+function closeTagsItem(e, tag, tagsItem) {
+    filters[tag].splice(filters[tag].indexOf(tagsItem))
     e.target.parentElement.parentElement.remove()
+    filterRecipes(filters)
 }
-test('ingredients');
-test('appliances');
-test('ustensils');
+function normalizeData(data) {
+    return `${data.slice(0,1).toUpperCase()}${data.slice(1).toLowerCase()}`
+}
+
+function filterTagItemsByText(e, tag){
+    const text = e.target.value
+    hydateTagByText(tag, text)
+}
+
+function hydrateAllTags(){
+    hydateTagByText('ingredients')
+    hydateTagByText('appliances')
+    hydateTagByText('ustensils')
+}
