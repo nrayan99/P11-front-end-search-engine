@@ -172,3 +172,37 @@ button>span{
 .delete-tags-item-btn{
     cursor: pointer;
 }
+.tags-opened-empty{
+    display: none;
+}
+@media (max-width: 1199px) { 
+    .ingredients-btn {
+        height: 70px;
+        width: 100%;
+        background: #3282F7;
+    }
+    .appliances-btn {
+        width: 100%;
+        margin: 10px 0px !important;
+    }
+    .ustensils-btn {
+        height: 70px;
+        width: 100%;
+        background: #ED6454;
+    }
+    .tags-opened{
+        width: 100%;
+        position: absolute;
+        z-index: 2;
+        max-width: 100%;
+        min-height: 160px;
+    }
+    .tags-container {
+        position: relative;
+        padding: 0px!important;
+        margin: 0px;
+    }
+    #filters{
+        margin-bottom: 0px;
+    }
+ }

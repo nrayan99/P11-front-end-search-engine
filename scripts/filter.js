@@ -22,6 +22,7 @@ function filterRecipes(research){
     if (!recipesFiltered.size){
         const elt = document.getElementById('empty-recipes-model');
         const dupNode = document.importNode(elt.content,true);
+        emptyRecipesMessage.innerHTML = ''
         emptyRecipesMessage.appendChild(dupNode)
     }
     else {
@@ -70,7 +71,7 @@ function filterByAppliances(appliancesList) {
     if (!appliancesList.length) return
     const filteredrecipesList = []
     recipesFiltered.forEach((recipe) => {
-        if (appliancesList.includes(normalizeData(recipe.appliance))){
+        if (!appliancesList.includes(normalizeData(recipe.appliance))){
             filteredrecipesList.push(recipe)
         }
     })

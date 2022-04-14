@@ -44,10 +44,11 @@
                   <input type="text" placeholder="Rechercher un ingrédient" aria-label="Search">
                   <i class="close-ingredients fa fa-chevron-up ml-2"></i>
                 </div>
-                <div>
                   <ul class="tags-items">
                   </ul>
-                </div>
+                  <div id="ingredients-opened-empty"  class="tags-opened-empty">
+                    Votre recherche ne correspond à aucun élément
+                  </div>
               </div>
               <button 
                 type="button"
@@ -58,12 +59,15 @@
               <span>Appareils</span>
               <i class="fa fa-chevron-down"></i>
               </button>
-              <div class="appliances-opened tags-opened mx-md-3">
+              <div class="appliances-opened tags-opened mx-xl-3">
                 <div class="search-line">
                   <input type="text" placeholder="Rechercher un appareil" aria-label="Search">
                   <i class="close-appliances fa fa-chevron-up ml-2"></i>
                 </div>
-                <div class="tags-items">
+                <ul class="tags-items">
+                </ul>
+                <div id="appliances-opened-empty"  class="tags-opened-empty">
+                  Votre recherche ne correspond à aucun élément
                 </div>
               </div>
       
@@ -81,7 +85,10 @@
                   <input type="text" placeholder="Rechercher un ustensile" aria-label="Search">
                   <i class="close-ustensils fa fa-chevron-up ml-2"></i>
                 </div>
-                <div class="tags-items">
+                <ul class="tags-items">
+                </ul>
+                <div id="ustensils-opened-empty" class="tags-opened-empty">
+                  Votre recherche ne correspond à aucun élément
                 </div>
             </div>
           </div>
@@ -162,8 +169,9 @@
       <h3 class="mt-3 d-flex">
         Aucune recette ne correspond à votre critère… Vous pouvez
 chercher « tarte aux pommes », « poisson », etc.
-      </h1>
+      </h3>
     </template>
+
   <script src="data/recipes.js" ></script>
   <script src="scripts/filter.js"></script>
   <script src="scripts/tags.js"></script>

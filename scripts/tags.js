@@ -1,6 +1,12 @@
 const tagsButtons = document.querySelectorAll('.tags-btn')
 const tagsNameArray = ['ustensils', 'appliances', 'ingredients']
 const closeTagButtons = document.querySelectorAll('.tags-opened i')
+const emptyTagsMessage = {
+    ingredients : document.getElementById('ingredients-opened-empty'),
+    appliances : document.getElementById('appliances-opened-empty'),
+    ustensils : document.getElementById('ustensils-opened-empty')
+}
+
 const tagsInput = {
     ingredients : document.querySelector('.ingredients-opened input'),
     appliances : document.querySelector('.appliances-opened input'),
@@ -46,6 +52,8 @@ function closeTag(tag){
     const buttonToShow = document.querySelector('.'+ tag + '-btn' )
     tagToHide.style.display = 'none'
     buttonToShow.style.setProperty('display','block', 'important')
+    tagsInput[tag].value = ''
+    hydateTagByText(tag,'')
 }
 
 function hydateTagByText(tag, text) {
@@ -54,7 +62,10 @@ function hydateTagByText(tag, text) {
     if (tag === 'ingredients'){
         recipesFiltered.forEach(recipe =>{
             recipe.ingredients.forEach(ingredient=> {
-                if (normalizeData(ingredient.ingredient).includes(text) || !text )
+                if (
+                    (normalizeData(ingredient.ingredient).includes(text) || !text )
+                    && !filters[tag].includes(normalizeData(ingredient.ingredient))
+                    )
                 {
                     tagsItemsList.add(normalizeData(ingredient.ingredient))
                 }
@@ -78,6 +89,12 @@ function hydateTagByText(tag, text) {
                 }
             })
         })
+    }
+    if(!tagsItemsList.size){
+        emptyTagsMessage[tag].style.display = 'block'
+    }
+    else {
+        emptyTagsMessage[tag].style.display = 'none'
     }
     tagsItemsList.forEach(tagsItem => {
         fillTags(tagsItem, tag)
@@ -103,7 +120,8 @@ function selectTag(tagsItem, tag){
     closeTag(tag)
     selectedTagsItemList.appendChild(dupNode)
     filters[tag].push(tagsItem)
-    console.log(filters)
+    tagsInput[tag].value = ''
+    hydateTagByText(tag,'')
     filterRecipes(filters)
 }
 
