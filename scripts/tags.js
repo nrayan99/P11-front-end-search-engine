@@ -18,18 +18,18 @@ for (const tag in tagsInput){
         filterTagItemsByText(event, tag)
     } )
 }
-
-closeTagButtons.forEach(closeTagButton => {
+for (let i = 0 ; i < closeTagButtons.length ; i++) {
+    const closeTagButton = closeTagButtons[i]
     closeTagButton.addEventListener('click', function(){
         closeTag(closeTagButton.className.split(' ')[0].split('-')[1])
     })
-})
-
-tagsButtons.forEach(tagsButton => {
+}
+for (let i = 0 ; i < tagsButtons.length ; i++){
+    const tagsButton = tagsButtons[i]
     tagsButton.addEventListener('click' , function() {
         openTag(tagsButton.className.split('-')[0])
     })
-})
+}
 
 const tagsItems = {
     ingredientsTagsItems: document.querySelector('.ingredients-opened .tags-items'),
@@ -37,9 +37,10 @@ const tagsItems = {
     appliancesTagsItems: document.querySelector('.appliances-opened .tags-items')
 }
 function openTag(tag){
-    tagsNameArray.forEach(tagName => {
+    for (let i = 0 ; i < tagsNameArray.length ; i++ ){
+        const tagName = tagsNameArray[i]
         if (tagName !== tag) closeTag(tagName)
-    })
+    }
     const tagToOpen = document.querySelector('.'+ tag + '-opened' )
     const buttonToHide = document.querySelector('.'+ tag + '-btn' )
     tagToOpen.style.display = 'block'
@@ -60,8 +61,10 @@ function hydateTagByText(tag, text) {
     const tagsItemsList = new Set();
     tagsItems[tag+'TagsItems'].innerHTML = ''
     if (tag === 'ingredients'){
-        recipesFiltered.forEach(recipe =>{
-            recipe.ingredients.forEach(ingredient=> {
+        for (let i= 0 ; i < recipesFiltered.size ; i++){
+            const recipe = Array.from(recipesFiltered)[i]
+            for (let i= 0 ; i < recipe.ingredients.length ; i++){
+                const ingredient = recipe.ingredients[i]
                 if (
                     (normalizeData(ingredient.ingredient).includes(text) || !text )
                     && !filters[tag].includes(normalizeData(ingredient.ingredient))
@@ -69,26 +72,32 @@ function hydateTagByText(tag, text) {
                 {
                     tagsItemsList.add(normalizeData(ingredient.ingredient))
                 }
-            })
-        })
+            }
+        }
     }
     else if (tag === 'appliances') {
-        recipesFiltered.forEach(recipe =>{
-            if (normalizeData(recipe.appliance).includes(text) || !text )
+        for (let i= 0 ; i < recipesFiltered.size ; i++){
+            const recipe = Array.from(recipesFiltered)[i]
+            if ((normalizeData(recipe.appliance).includes(text) || !text) 
+            && (!filters[tag].includes(normalizeData(recipe.appliance))))
             {
                tagsItemsList.add(normalizeData(recipe.appliance))
             }
-        })
+        }
     }
     else if (tag === 'ustensils') {
-        recipesFiltered.forEach(recipe =>{
-            recipe.ustensils.forEach(ustensil=> {
-                if (normalizeData(ustensil).includes(text) || !text )
+        for (let i= 0 ; i < recipesFiltered.size ; i++){
+            const recipe = Array.from(recipesFiltered)[i]
+            for (let i= 0 ; i < recipe.ustensils.length ; i++){
+                const ustensil = recipe.ustensils[i]
+                if ((normalizeData(ustensil).includes(text) || !text)
+                && (!filters[tag].includes(normalizeData(ustensil))
+                ))
                 {
                     tagsItemsList.add(normalizeData(ustensil))
                 }
-            })
-        })
+            }
+        }
     }
     if(!tagsItemsList.size){
         emptyTagsMessage[tag].style.display = 'block'
@@ -96,9 +105,10 @@ function hydateTagByText(tag, text) {
     else {
         emptyTagsMessage[tag].style.display = 'none'
     }
-    tagsItemsList.forEach(tagsItem => {
+    for (let i = 0 ; i < tagsItemsList.size; i++) {
+        const tagsItem = Array.from(tagsItemsList)[i]
         fillTags(tagsItem, tag)
-    })
+    }
 }
 
 function fillTags(tagsItem, tag) {
