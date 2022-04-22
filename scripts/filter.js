@@ -36,7 +36,7 @@ function filterByText(text) {
     const filteredrecipesList = []
     if (text.length < 3) return
     for (let i= 0 ; i < recipesFiltered.size ; i++){
-        const recipe = recipesFiltered[i]
+        const recipe = Array.from(recipesFiltered)[i]
         if (recipe.name.includes(text)) 
         { 
             filteredrecipesList.push(recipe)
