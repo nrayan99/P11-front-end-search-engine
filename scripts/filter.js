@@ -2,7 +2,7 @@ const searchBar = document.querySelector('.search-bar')
 const emptyRecipesMessage = document.getElementById('empty-recipes-message')
 searchBar.addEventListener('input', (event) => {
     filters.textInputed = event.target.value
-    filterRecipes(filters)
+    filterRecipes(filters, true)
 })
 let recipesFiltered = new Set(recipes)
 
@@ -12,8 +12,8 @@ const filters = {
     ustensils  : [],
     appliances  : []
 }
-function filterRecipes(research){
-    recipesFiltered = new Set(recipes)
+function filterRecipes(research, resetRecipes){
+    if (resetRecipes) recipesFiltered = new Set(recipes)
     filterByText(research.textInputed)
     filterByIngredients(research.ingredients)
     filterByUstensils(research.ustensils)
@@ -33,83 +33,39 @@ function filterRecipes(research){
     
 }
 function filterByText(text) { 
-    const filteredrecipesList = []
     if (text.length < 3) return
-    for (let i= 0 ; i < recipesFiltered.size ; i++){
-        const recipe = recipesFiltered[i]
-        if (recipe.name.includes(text)) 
-        { 
-            filteredrecipesList.push(recipe)
-        }
-        else if (recipe.description.includes(text)) {
-            filteredrecipesList.push(recipe)
-        }
-        else
-        for (let i= 0 ; i < recipe.ingredients.length ; i++){
-            const ingredient = recipe.ingredients[i] 
-            if (ingredient.ingredient.includes(text))
-            {
-                filteredrecipesList.push(recipe)
-            }
-        }
-    }
+    let filteredrecipesList = Array.from(recipesFiltered)
+    filteredrecipesList = filteredrecipesList.filter(x => (
+        x.name.includes(text)
+        || x.description.includes(text)
+        || x.ingredients.forEach(ingredient => {return ingredient.ingredient.includes(text)})
+        ))
     recipesFiltered = new Set(filteredrecipesList)
 }
 
 function filterByIngredients(ingredientsList){
     if (!ingredientsList.length) return
-    const filteredrecipesList = []
-    for (let i= 0 ; i < recipesFiltered.size ; i++){
-        const recipe = Array.from(recipesFiltered)[i]
-        let isRecipeValid = true
-        const recipeIngredientsList = []
-        for (let i= 0 ; i < recipe.ingredients.length ; i++){
-            const ingredient = recipe.ingredients[i]
-            recipeIngredientsList.push(normalizeData(ingredient.ingredient))
-        }
-        for (let i = 0 ; i < ingredientsList.length ; i++){
-            const ingredient = ingredientsList[i];
-            if (!recipeIngredientsList.includes(ingredient)) isRecipeValid = false
-        }
-        if (isRecipeValid){
-            filteredrecipesList.push(recipe)
-        }
-    }
+    let filteredrecipesList = Array.from(recipesFiltered)
+    filteredrecipesList = filteredrecipesList.filter(recipe => {
+        const recipeIngredientsList = recipe.ingredients.map(i => normalizeData(i.ingredient)) // TO-DO performance: mettre dans la liste de base pour chaque recette
+        return ingredientsList.every(x => recipeIngredientsList.includes(normalizeData(x)))
+    })
     recipesFiltered = new Set(filteredrecipesList)
 }
 
 function filterByAppliances(appliancesList) {
     if (!appliancesList.length) return
-    const filteredrecipesList = []
-    for (let i= 0 ; i < recipesFiltered.size ; i++){
-        const recipe = Array.from(recipesFiltered)[i]
-        let isRecipeValid = true
-        const recipesIngredientsList = []
-        if (appliancesList.includes(normalizeData(recipe.appliance))){
-            filteredrecipesList.push(recipe)
-        }
-    }
+    let filteredrecipesList = Array.from(recipesFiltered)
+    filteredrecipesList = filteredrecipesList.filter(recipe => normalizeData(recipe.appliance) === normalizeData(appliancesList[0]))
     recipesFiltered = new Set(filteredrecipesList)
 }
 
 function filterByUstensils(ustensilsList) {
     if (!ustensilsList.length) return
-    const filteredrecipesList = []
-    for (let i= 0 ; i < recipesFiltered.size ; i++){
-        const recipe = Array.from(recipesFiltered)[i]
-        let isRecipeValid = true
-        const recipeUstensilsList = []
-        for (let i= 0 ; i < recipe.ustensils.length ; i++){
-            const ustensil = recipe.ustensils[i]
-            recipeUstensilsList.push(normalizeData(ustensil))
-        }
-        for (let i = 0 ; i < ustensilsList.length ; i++){
-            const ustensil = ustensilsList[i];
-            if (!recipeUstensilsList.includes(ustensil)) isRecipeValid = false
-        }
-        if (isRecipeValid){
-            filteredrecipesList.push(recipe)
-        }
-    }
+    let filteredrecipesList = Array.from(recipesFiltered)
+    filteredrecipesList = filteredrecipesList.filter(recipe => {
+        const recipeUstensilList = recipe.ustensils.map(ustensil => normalizeData(ustensil))
+        return ustensilsList.every(x => recipeUstensilList.includes(normalizeData(x)))
+    })
     recipesFiltered = new Set(filteredrecipesList)
 }

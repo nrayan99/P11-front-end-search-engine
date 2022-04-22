@@ -18,18 +18,16 @@ for (const tag in tagsInput){
         filterTagItemsByText(event, tag)
     } )
 }
-for (let i = 0 ; i < closeTagButtons.length ; i++) {
-    const closeTagButton = closeTagButtons[i]
+closeTagButtons.forEach(closeTagButton => { 
     closeTagButton.addEventListener('click', function(){
         closeTag(closeTagButton.className.split(' ')[0].split('-')[1])
     })
-}
-for (let i = 0 ; i < tagsButtons.length ; i++){
-    const tagsButton = tagsButtons[i]
+})
+tagsButtons.forEach(tagsButton => {
     tagsButton.addEventListener('click' , function() {
         openTag(tagsButton.className.split('-')[0])
     })
-}
+})
 
 const tagsItems = {
     ingredientsTagsItems: document.querySelector('.ingredients-opened .tags-items'),
@@ -37,10 +35,9 @@ const tagsItems = {
     appliancesTagsItems: document.querySelector('.appliances-opened .tags-items')
 }
 function openTag(tag){
-    for (let i = 0 ; i < tagsNameArray.length ; i++ ){
-        const tagName = tagsNameArray[i]
+    tagsNameArray.forEach(tagName => {
         if (tagName !== tag) closeTag(tagName)
-    }
+    })
     const tagToOpen = document.querySelector('.'+ tag + '-opened' )
     const buttonToHide = document.querySelector('.'+ tag + '-btn' )
     tagToOpen.style.display = 'block'
@@ -61,10 +58,8 @@ function hydateTagByText(tag, text) {
     const tagsItemsList = new Set();
     tagsItems[tag+'TagsItems'].innerHTML = ''
     if (tag === 'ingredients'){
-        for (let i= 0 ; i < recipesFiltered.size ; i++){
-            const recipe = Array.from(recipesFiltered)[i]
-            for (let i= 0 ; i < recipe.ingredients.length ; i++){
-                const ingredient = recipe.ingredients[i]
+        recipesFiltered.forEach(recipe => {
+            recipe.ingredients.forEach(ingredient => {
                 if (
                     (normalizeData(ingredient.ingredient).includes(text) || !text )
                     && !filters[tag].includes(normalizeData(ingredient.ingredient))
@@ -72,32 +67,29 @@ function hydateTagByText(tag, text) {
                 {
                     tagsItemsList.add(normalizeData(ingredient.ingredient))
                 }
-            }
-        }
+            })
+        })
     }
     else if (tag === 'appliances') {
-        for (let i= 0 ; i < recipesFiltered.size ; i++){
-            const recipe = Array.from(recipesFiltered)[i]
+        recipesFiltered.forEach(recipe =>{
             if ((normalizeData(recipe.appliance).includes(text) || !text) 
             && (!filters[tag].includes(normalizeData(recipe.appliance))))
             {
                tagsItemsList.add(normalizeData(recipe.appliance))
             }
-        }
+        })
     }
     else if (tag === 'ustensils') {
-        for (let i= 0 ; i < recipesFiltered.size ; i++){
-            const recipe = Array.from(recipesFiltered)[i]
-            for (let i= 0 ; i < recipe.ustensils.length ; i++){
-                const ustensil = recipe.ustensils[i]
+        recipesFiltered.forEach(recipe =>{
+            recipe.ustensils.forEach(ustensil => {
                 if ((normalizeData(ustensil).includes(text) || !text)
                 && (!filters[tag].includes(normalizeData(ustensil))
                 ))
                 {
                     tagsItemsList.add(normalizeData(ustensil))
                 }
-            }
-        }
+            })
+        })
     }
     if(!tagsItemsList.size){
         emptyTagsMessage[tag].style.display = 'block'
@@ -105,10 +97,9 @@ function hydateTagByText(tag, text) {
     else {
         emptyTagsMessage[tag].style.display = 'none'
     }
-    for (let i = 0 ; i < tagsItemsList.size; i++) {
-        const tagsItem = Array.from(tagsItemsList)[i]
+    tagsItemsList.forEach(tagsItem => {
         fillTags(tagsItem, tag)
-    }
+    })
 }
 
 function fillTags(tagsItem, tag) {
@@ -138,7 +129,7 @@ function selectTag(tagsItem, tag){
 function closeTagsItem(e, tag, tagsItem) {
     filters[tag].splice(filters[tag].indexOf(tagsItem))
     e.target.parentElement.parentElement.remove()
-    filterRecipes(filters)
+    filterRecipes(filters, true)
 }
 function normalizeData(data) {
     return `${data.slice(0,1).toUpperCase()}${data.slice(1).toLowerCase()}`
