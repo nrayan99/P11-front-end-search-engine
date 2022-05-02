@@ -1,12 +1,13 @@
 const tagsButtons = document.querySelectorAll('.tags-btn')
 const tagsNameArray = ['ustensils', 'appliances', 'ingredients']
 const closeTagButtons = document.querySelectorAll('.tags-opened i')
+//get fallback messages for empty tags
 const emptyTagsMessage = {
     ingredients : document.getElementById('ingredients-opened-empty'),
     appliances : document.getElementById('appliances-opened-empty'),
     ustensils : document.getElementById('ustensils-opened-empty')
 }
-
+// get the search bar input in each tags
 const tagsInput = {
     ingredients : document.querySelector('.ingredients-opened input'),
     appliances : document.querySelector('.appliances-opened input'),
@@ -140,6 +141,7 @@ function closeTagsItem(e, tag, tagsItem) {
     e.target.parentElement.parentElement.remove()
     filterRecipes(filters)
 }
+// normalize name of tags items
 function normalizeData(data) {
     return `${data.slice(0,1).toUpperCase()}${data.slice(1).toLowerCase()}`
 }

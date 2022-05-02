@@ -1,7 +1,7 @@
 const recipesSection = document.getElementById("recipes")
 
-hydrateRecipes(recipes)
-hydrateAllTags()
+hydrateRecipes(recipes) // show all recipes when we firstly come in the page
+hydrateAllTags() // show all the options in each tags
 function hydrateRecipes(recipes){
     recipesLength = recipes.length || recipes.size
     for (let i = 0 ; i< recipesLength ; i++ ){
