@@ -55,7 +55,7 @@ function closeTag(tag){
     tagToHide.style.display = 'none'
     buttonToShow.style.setProperty('display','block', 'important')
     tagsInput[tag].value = ''
-    hydateTagByText(tag,'')
+    hydateTagByText(tag)
 }
 
 function hydateTagByText(tag, text) {
@@ -67,7 +67,7 @@ function hydateTagByText(tag, text) {
             for (let i= 0 ; i < recipe.ingredients.length ; i++){
                 const ingredient = recipe.ingredients[i]
                 if (
-                    (normalizeData(ingredient.ingredient).includes(text) || !text )
+                    (ingredient.ingredient.toLowerCase().includes(text) || !text )
                     && !filters[tag].includes(normalizeData(ingredient.ingredient))
                     )
                 {
@@ -79,7 +79,7 @@ function hydateTagByText(tag, text) {
     else if (tag === 'appliances') {
         for (let i= 0 ; i < recipesFiltered.size ; i++){
             const recipe = Array.from(recipesFiltered)[i]
-            if ((normalizeData(recipe.appliance).includes(text) || !text) 
+            if ((recipe.appliance.toLowerCase().includes(text) || !text) 
             && (!filters[tag].includes(normalizeData(recipe.appliance))))
             {
                tagsItemsList.add(normalizeData(recipe.appliance))
@@ -91,7 +91,7 @@ function hydateTagByText(tag, text) {
             const recipe = Array.from(recipesFiltered)[i]
             for (let i= 0 ; i < recipe.ustensils.length ; i++){
                 const ustensil = recipe.ustensils[i]
-                if ((normalizeData(ustensil).includes(text) || !text)
+                if ((ustensil.toLowerCase().includes(text) || !text)
                 && (!filters[tag].includes(normalizeData(ustensil))
                 ))
                 {
@@ -132,7 +132,7 @@ function selectTag(tagsItem, tag){
     selectedTagsItemList.appendChild(dupNode)
     filters[tag].push(tagsItem)
     tagsInput[tag].value = ''
-    hydateTagByText(tag,'')
+    hydateTagByText(tag)
     filterRecipes(filters)
 }
 
@@ -147,7 +147,7 @@ function normalizeData(data) {
 }
 
 function filterTagItemsByText(e, tag){
-    const text = e.target.value
+    const text = e.target.value.toLowerCase()
     hydateTagByText(tag, text)
 }
 

@@ -16,7 +16,7 @@ const filters = {
 // the main function that applies all filters selected by the user from the object 'filters' 
 function filterRecipes(research){
     recipesFiltered = new Set(recipes)
-    filterByText(research.textInputed)
+    filterByText(research.textInputed.toLowerCase())
     filterByIngredients(research.ingredients)
     filterByUstensils(research.ustensils)
     filterByAppliances(research.appliances)
@@ -39,17 +39,17 @@ function filterByText(text) {
     if (text.length < 3) return
     for (let i= 0 ; i < recipesFiltered.size ; i++){
         const recipe = Array.from(recipesFiltered)[i]
-        if (recipe.name.includes(text)) 
+        if (recipe.name.toLowerCase().includes(text)) 
         { 
             filteredRecipesList.push(recipe)
         }
-        else if (recipe.description.includes(text)) {
+        else if (recipe.description.toLowerCase().includes(text)) {
             filteredRecipesList.push(recipe)
         }
         else
         for (let i= 0 ; i < recipe.ingredients.length ; i++){
             const ingredient = recipe.ingredients[i] 
-            if (ingredient.ingredient.includes(text))
+            if (ingredient.ingredient.toLowerCase().includes(text))
             {
                 filteredRecipesList.push(recipe)
             }
@@ -67,7 +67,7 @@ function filterByIngredients(ingredientsList){
         const recipeIngredientsList = []
         for (let i= 0 ; i < recipe.ingredients.length ; i++){
             const ingredient = recipe.ingredients[i]
-            recipeIngredientsList.push(normalizeData(ingredient.ingredient))
+            recipeIngredientsList.push(ingredient.ingredient)
         }
         for (let i = 0 ; i < ingredientsList.length ; i++){
             const ingredient = ingredientsList[i];
