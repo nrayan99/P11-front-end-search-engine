@@ -1,11 +1,13 @@
 const recipesSection = document.getElementById("recipes")
 
-hydrateRecipes(recipes)
-hydrateAllTags()
+hydrateRecipes(recipes) // show all recipes when we firstly come in the page
+
+hydrateAllTags() // show all the options in each tags
+
 function hydrateRecipes(recipes){
     recipes.forEach(recipe => showRecipe(recipe))
 }
-
+// display a recipe
 function showRecipe(recipe) {
     const elt = document.getElementById('receipt-model');
     const dupNode = document.importNode(elt.content,true);
@@ -15,7 +17,7 @@ function showRecipe(recipe) {
     const ingredientModel = document.getElementById('ingredient-model');
     recipe.ingredients.forEach(ingredient =>{
         const dupIngredientNode = document.importNode(ingredientModel.content,true);
-        dupIngredientNode.querySelector('.receipt-ingredient-name').textContent = ingredient.ingredient
+        dupIngredientNode.querySelector('.receipt-ingredient-name').textContent = normalizeData(ingredient.ingredient)
         if (ingredient.quantity) {
             dupIngredientNode.querySelector('.receipt-ingredient-quantity').textContent = ': ' + ingredient.quantity
         }

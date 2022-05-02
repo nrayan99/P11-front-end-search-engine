@@ -1,12 +1,14 @@
 const tagsButtons = document.querySelectorAll('.tags-btn')
 const tagsNameArray = ['ustensils', 'appliances', 'ingredients']
 const closeTagButtons = document.querySelectorAll('.tags-opened i')
+
+//get fallback messages for empty tags
 const emptyTagsMessage = {
     ingredients : document.getElementById('ingredients-opened-empty'),
     appliances : document.getElementById('appliances-opened-empty'),
     ustensils : document.getElementById('ustensils-opened-empty')
 }
-
+// get the search bar input in each tags
 const tagsInput = {
     ingredients : document.querySelector('.ingredients-opened input'),
     appliances : document.querySelector('.appliances-opened input'),
@@ -51,7 +53,7 @@ function closeTag(tag){
     tagToHide.style.display = 'none'
     buttonToShow.style.setProperty('display','block', 'important')
     tagsInput[tag].value = ''
-    hydateTagByText(tag,'')
+    hydateTagByText(tag)
 }
 
 function hydateTagByText(tag, text) {
@@ -101,7 +103,6 @@ function hydateTagByText(tag, text) {
         fillTags(tagsItem, tag)
     })
 }
-
 function fillTags(tagsItem, tag) {
     const elt = document.getElementById('tags-item-model');
     const dupNode = document.importNode(elt.content,true);
@@ -122,15 +123,17 @@ function selectTag(tagsItem, tag){
     selectedTagsItemList.appendChild(dupNode)
     filters[tag].push(tagsItem)
     tagsInput[tag].value = ''
-    hydateTagByText(tag,'')
+    hydateTagByText(tag)
     filterRecipes(filters)
 }
-
+// close a tag selected by the user
 function closeTagsItem(e, tag, tagsItem) {
     filters[tag].splice(filters[tag].indexOf(tagsItem))
     e.target.parentElement.parentElement.remove()
     filterRecipes(filters, true)
 }
+
+// normalize name of tags items
 function normalizeData(data) {
     return `${data.slice(0,1).toUpperCase()}${data.slice(1).toLowerCase()}`
 }
