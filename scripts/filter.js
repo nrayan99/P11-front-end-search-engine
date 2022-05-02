@@ -14,7 +14,7 @@ const filters = {
 }
 function filterRecipes(research, resetRecipes){
     if (resetRecipes) recipesFiltered = new Set(recipes)
-    filterByText(research.textInputed)
+    filterByText(research.textInputed.toLowerCase())
     filterByIngredients(research.ingredients)
     filterByUstensils(research.ustensils)
     filterByAppliances(research.appliances)
@@ -36,9 +36,9 @@ function filterByText(text) {
     if (text.length < 3) return
     let filteredrecipesList = Array.from(recipesFiltered)
     filteredrecipesList = filteredrecipesList.filter(x => (
-        x.name.includes(text)
-        || x.description.includes(text)
-        || x.ingredients.forEach(ingredient => {return ingredient.ingredient.includes(text)})
+        x.name.toLowerCase().includes(text)
+        || x.description.toLowerCase().includes(text)
+        || x.ingredients.forEach(ingredient => {return ingredient.ingredient.toLowerCase().includes(text)})
         ))
     recipesFiltered = new Set(filteredrecipesList)
 }
@@ -47,8 +47,8 @@ function filterByIngredients(ingredientsList){
     if (!ingredientsList.length) return
     let filteredrecipesList = Array.from(recipesFiltered)
     filteredrecipesList = filteredrecipesList.filter(recipe => {
-        const recipeIngredientsList = recipe.ingredients.map(i => normalizeData(i.ingredient)) // TO-DO performance: mettre dans la liste de base pour chaque recette
-        return ingredientsList.every(x => recipeIngredientsList.includes(normalizeData(x)))
+        const recipeIngredientsList = recipe.ingredients.map(i => i.ingredient.toLowerCase()) // TO-DO performance: mettre dans la liste de base pour chaque recette
+        return ingredientsList.every(x => recipeIngredientsList.includes(x.toLowerCase()))
     })
     recipesFiltered = new Set(filteredrecipesList)
 }
@@ -56,7 +56,7 @@ function filterByIngredients(ingredientsList){
 function filterByAppliances(appliancesList) {
     if (!appliancesList.length) return
     let filteredrecipesList = Array.from(recipesFiltered)
-    filteredrecipesList = filteredrecipesList.filter(recipe => normalizeData(recipe.appliance) === normalizeData(appliancesList[0]))
+    filteredrecipesList = filteredrecipesList.filter(recipe => recipe.appliance.toLowerCase() === appliancesList[0].toLowerCase())
     recipesFiltered = new Set(filteredrecipesList)
 }
 
@@ -64,8 +64,8 @@ function filterByUstensils(ustensilsList) {
     if (!ustensilsList.length) return
     let filteredrecipesList = Array.from(recipesFiltered)
     filteredrecipesList = filteredrecipesList.filter(recipe => {
-        const recipeUstensilList = recipe.ustensils.map(ustensil => normalizeData(ustensil))
-        return ustensilsList.every(x => recipeUstensilList.includes(normalizeData(x)))
+        const recipeUstensilList = recipe.ustensils.map(ustensil => ustensil.toLowerCase())
+        return ustensilsList.every(x => recipeUstensilList.includes(x.toLowerCase()))
     })
     recipesFiltered = new Set(filteredrecipesList)
 }

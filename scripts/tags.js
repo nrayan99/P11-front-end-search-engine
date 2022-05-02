@@ -61,7 +61,7 @@ function hydateTagByText(tag, text) {
         recipesFiltered.forEach(recipe => {
             recipe.ingredients.forEach(ingredient => {
                 if (
-                    (normalizeData(ingredient.ingredient).includes(text) || !text )
+                    (ingredient.ingredient.toLowerCase().includes(text) || !text )
                     && !filters[tag].includes(normalizeData(ingredient.ingredient))
                     )
                 {
@@ -72,7 +72,7 @@ function hydateTagByText(tag, text) {
     }
     else if (tag === 'appliances') {
         recipesFiltered.forEach(recipe =>{
-            if ((normalizeData(recipe.appliance).includes(text) || !text) 
+            if ((recipe.appliance.toLowerCase().includes(text) || !text)
             && (!filters[tag].includes(normalizeData(recipe.appliance))))
             {
                tagsItemsList.add(normalizeData(recipe.appliance))
@@ -82,7 +82,7 @@ function hydateTagByText(tag, text) {
     else if (tag === 'ustensils') {
         recipesFiltered.forEach(recipe =>{
             recipe.ustensils.forEach(ustensil => {
-                if ((normalizeData(ustensil).includes(text) || !text)
+                if ((ustensil.toLowerCase().includes(text) || !text)
                 && (!filters[tag].includes(normalizeData(ustensil))
                 ))
                 {
@@ -136,7 +136,7 @@ function normalizeData(data) {
 }
 
 function filterTagItemsByText(e, tag){
-    const text = e.target.value
+    const text = e.target.value.toLowerCase()
     hydateTagByText(tag, text)
 }
 
