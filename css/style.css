@@ -175,6 +175,11 @@ button>span{
 .tags-opened-empty{
     display: none;
 }
+@media (max-width:768px){
+    .tags-items{
+        grid-template-columns: 1fr 1fr;
+    }
+}
 @media (max-width: 1199px) { 
     .ingredients-btn {
         height: 70px;
